@@ -3,6 +3,6 @@ spring:
     name: customer-svc
   cloud:
     config:
-      uri: http://localhost:9095
+      uri: "http://${SERVER_URL:localhost}:9095"
   security:
     enabled: false
