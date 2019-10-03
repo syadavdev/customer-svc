@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +32,7 @@ public class CustomerController {
     @GetMapping("/get")
     @ApiOperation(value = "Get All Customers")
     @ApiResponse(code = 400, message = "Bad Request")
+    @PreAuthorize("hasAuthority('ROLE1')")
     public ResponseEntity getCustomerInfo(){
         return ResponseEntity.status(HttpStatus.OK).body(customerRepository.findAll());
     }
