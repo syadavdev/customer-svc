@@ -26,6 +26,7 @@
 		<swagger.version>2.7.0</swagger.version>
         <common-svc.version>0.0.1-SNAPSHOT</common-svc.version>
 		<modelmapper.version>1.1.1</modelmapper.version>
+		<jjwt.version>0.9.1</jjwt.version>
 	</properties>
 
 	<dependencies>
@@ -80,6 +81,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>${jjwt.version}</version>
 		</dependency>
 
 		<dependency>
