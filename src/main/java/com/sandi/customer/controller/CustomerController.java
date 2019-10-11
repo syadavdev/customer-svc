@@ -29,7 +29,7 @@ public class CustomerController {
         this.customerRepository = customerRepository;
     }
 
-    @GetMapping("/get")
+    @GetMapping("/customer")
     @ApiOperation(value = "Get All Customers")
     @ApiResponse(code = 400, message = "Bad Request")
     @PreAuthorize("hasAuthority('ROLE1')")
@@ -37,7 +37,7 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK).body(customerRepository.findAll());
     }
 
-    @PostMapping("/save")
+    @PostMapping("/customer")
     @ApiOperation(value = "Save Customer")
     @ApiResponse(code = 400, message = "Bad Request")
     public ResponseEntity saveCustomerInfo(@NotNull @RequestBody Customer customer){
