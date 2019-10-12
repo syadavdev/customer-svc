@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -20,6 +19,5 @@ public class Role {
     @Column(name = "role_id")
     private Integer roleId;
     private String name;
-    private Set<Right> rights;
 
 }
