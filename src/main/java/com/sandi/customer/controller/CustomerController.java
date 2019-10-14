@@ -10,14 +10,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.Instant;
 
 @RefreshScope
 @RestController
+@RequestMapping("/api/v1")
 public class CustomerController {
 
     private CustomerRepository customerRepository;
@@ -29,12 +34,15 @@ public class CustomerController {
         this.customerRepository = customerRepository;
     }
 
-    @GetMapping("/customer")
-    @ApiOperation(value = "Get All Customers")
+    @GetMapping("/customer/{customerName}")
+    @ApiOperation(value = "Get Customer By Its Name")
     @ApiResponse(code = 400, message = "Bad Request")
-    @PreAuthorize("hasAuthority('ROLE1')")
-    public ResponseEntity getCustomerInfo(){
-        return ResponseEntity.status(HttpStatus.OK).body(customerRepository.findAll());
+    @PreAuthorize("hasAuthority('VIEW_CUSTOMER')")
+    public ResponseEntity getCustomerInfo(@NotBlank @PathVariable("customerName") String customerName){
+        Customer customer = customerRepository.findByCustomerName(customerName);
+        customer.setLastLogin(Instant.now());
+        customerRepository.save(customer);
+        return ResponseEntity.status(HttpStatus.OK).body(customer);
     }
 
     @PostMapping("/customer")

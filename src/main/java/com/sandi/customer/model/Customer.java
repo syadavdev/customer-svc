@@ -5,10 +5,16 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.time.Instant;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -35,10 +41,13 @@ public class Customer {
     @Column(name = "country")
     private String country;
     @Column(name = "created_on")
-    private String createdOn;
+    private Instant createdOn;
     @Column(name = "updated_on")
-    private String updatedOn;
+    private Instant updatedOn;
     @Column(name = "last_login")
-    private String lastLogin;
+    private Instant lastLogin;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "customer_role", joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "customer_id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
+    private Set<Role> roles;
 
 }
